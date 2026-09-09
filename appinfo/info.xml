@@ -4,13 +4,14 @@
     <id>sefaria_dashboard</id>
     <namespace>SefariaDashboard</namespace>
     <name>Sefaria Dashboard</name>
-    <summary>Today's Jewish learning schedules from Sefaria</summary>
-    <description>Shows today's learning schedules from Sefaria on the Nextcloud dashboard.</description>
+    <summary>Jewish learning schedules from Sefaria</summary>
+    <description>Shows today's Jewish learning schedules from Sefaria.</description>
     <version>0.1.0</version>
     <licence>AGPL-3.0-or-later</licence>
-    <author>Brian</author>
-    <category>education</category>
-    <bugs>https://github.com/brian/sefaria-dashboard-widget/issues</bugs>
+    <author>Brian Schwartz</author>
+    <category>dashboard</category>
+    <bugs>https://github.com/bmschwa/sefaria-nextcloud-widget/issues</bugs>
+    <repository>https://github.com/bmschwa/sefaria-nextcloud-widget</repository>
     <dependencies>
         <php min-version="8.1"/>
         <nextcloud min-version="31"/>

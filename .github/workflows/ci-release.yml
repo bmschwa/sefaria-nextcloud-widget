@@ -1,0 +1,82 @@
+name: Validate and release app
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+    tags:
+      - 'v*.*.*'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Validate
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          extensions: zip
+          tools: composer
+
+      - name: Install development dependencies
+        run: composer install --no-interaction --prefer-dist
+
+      - name: Validate Composer metadata
+        run: composer validate --no-check-publish
+
+      - name: Lint PHP
+        run: composer lint
+
+      - name: Validate app metadata
+        run: xmllint --noout appinfo/info.xml
+
+  release:
+    name: Build GitHub release
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: validate
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Read release version
+        id: version
+        shell: bash
+        run: |
+          version="${GITHUB_REF_NAME#v}"
+          metadata_version="$(sed -n 's:.*<version>\(.*\)</version>.*:\1:p' appinfo/info.xml)"
+          if [[ "$version" != "$metadata_version" ]]; then
+            echo "Tag version $version does not match info.xml version $metadata_version"
+            exit 1
+          fi
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+
+      - name: Build App Store archive
+        shell: bash
+        run: |
+          version="${{ steps.version.outputs.version }}"
+          staging="${RUNNER_TEMP}/sefaria_dashboard"
+          archive="sefaria_dashboard-${version}.tar.gz"
+          mkdir -p "$staging"
+          rsync -a --exclude='.git' --exclude='.github' --exclude='.vscode' --exclude='vendor' ./ "$staging/"
+          tar -czf "$archive" -C "${RUNNER_TEMP}" sefaria_dashboard
+          tar -tzf "$archive"
+          test "$(tar -tzf "$archive" | sed -n '1p')" = "sefaria_dashboard/"
+          test -f "$staging/appinfo/info.xml"
+          test -f "$staging/CHANGELOG.md"
+
+      - name: Publish GitHub release
+        uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true
+          files: sefaria_dashboard-${{ steps.version.outputs.version }}.tar.gz

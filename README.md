@@ -22,6 +22,17 @@ A small Nextcloud app that adds today's Sefaria learning schedules to the dashbo
 
 The app targets Nextcloud 31 and newer, and PHP 8.1 or newer.
 
+## Releases
+
+GitHub Actions validates pushes and pull requests. To create a release archive, update the version in `appinfo/info.xml`, update `CHANGELOG.md`, commit those changes, and push a matching tag:
+
+```bash
+git tag v0.1.0
+git push origin v0.1.0
+```
+
+The workflow checks the tag and app version, then publishes `sefaria_dashboard-0.1.0.tar.gz` to the GitHub Release. The archive is structured for Nextcloud installation and excludes development files such as `vendor/`, `.git/`, and `.vscode/`.
+
 ## References
 
 - [Nextcloud dashboard widgets](https://docs.nextcloud.com/server/latest/developer_manual/digging_deeper/dashboard.html#dashboard)
