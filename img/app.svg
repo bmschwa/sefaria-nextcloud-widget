@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title>Sefaria</title>
+  <rect width="64" height="64" rx="12" fill="#126b63"/>
+  <path d="M17 14h22c5 0 8 3 8 8v28H25c-5 0-8-3-8-8V14Z" fill="#f6f1e7"/>
+  <path d="M25 20h16M25 28h16M25 36h10" fill="none" stroke="#126b63" stroke-linecap="round" stroke-width="4"/>
+  <path d="M17 42c0-4 3-6 8-6h22v14H25c-5 0-8-3-8-8Z" fill="#d49a3a"/>
+</svg>

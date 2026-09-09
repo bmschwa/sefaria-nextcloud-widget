@@ -1,0 +1,25 @@
+{
+    "name": "sefaria/sefaria-dashboard",
+    "description": "A Nextcloud dashboard widget for Sefaria learning schedules.",
+    "type": "project",
+    "license": "AGPL-3.0-or-later",
+    "autoload": {
+        "psr-4": {
+            "OCA\\SefariaDashboard\\": "lib/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "OCP\\": "vendor/nextcloud/ocp/OCP/"
+        }
+    },
+    "require-dev": {
+        "nextcloud/ocp": "^31.0"
+    },
+    "scripts": {
+        "lint": "php -l appinfo/bootstrap.php && php -l lib/AppInfo/Application.php && php -l lib/Dashboard/SefariaWidget.php && php -l lib/Service/SefariaCalendarService.php"
+    },
+    "config": {
+        "optimize-autoloader": true
+    }
+}
