@@ -4,7 +4,7 @@ A small Nextcloud app that adds today's Sefaria learning schedules to the dashbo
 
 # **AI DISCLOSURE**
 
-**This project was built with AI assistance. The tool used was GitHub Copilot in Visual Studio Code. The exact underlying model name was not exposed in the development session, so no specific model name is claimed here. AI assistance was used for project setup, PHP and Nextcloud code, debugging, documentation, and validation.**
+**This project was built with AI assistance. The tool used was GitHub Copilot in Visual Studio Code.  AI assistance was used for project setup, PHP and Nextcloud code, debugging, documentation, and validation.**
 
 ## What it does
 

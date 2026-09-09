@@ -35,6 +35,9 @@ jobs:
       - name: Lint PHP
         run: composer lint
 
+      - name: Install XML lint tools
+        run: sudo apt-get update && sudo apt-get install --yes libxml2-utils
+
       - name: Validate app metadata
         run: xmllint --noout appinfo/info.xml
 
