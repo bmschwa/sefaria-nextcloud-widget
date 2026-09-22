@@ -20,7 +20,7 @@ A small Nextcloud app that adds today's Sefaria learning schedules to the dashbo
 3. Enable it with `occ app:enable sefaria_dashboard`.
 4. Open the Nextcloud dashboard.
 
-The app targets Nextcloud 31 and newer, and PHP 8.1 or newer.
+The app targets Nextcloud 31 and PHP 8.1 or newer.
 
 ## Releases
 
