@@ -53,7 +53,7 @@ jobs:
         shell: bash
         run: |
           release_tag="main-${GITHUB_SHA:0:12}"
-          nightly=true
+          nightly=false
           version="$(sed -n 's:.*<version>\(.*\)</version>.*:\1:p' appinfo/info.xml)"
           echo "release_tag=$release_tag" >> "$GITHUB_OUTPUT"
           echo "version=$version" >> "$GITHUB_OUTPUT"
