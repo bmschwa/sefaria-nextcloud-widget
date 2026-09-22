@@ -3,10 +3,6 @@ name: Validate and release app
 on:
   pull_request:
   push:
-    branches:
-      - main
-    tags:
-      - 'v*.*.*'
 
 permissions:
   contents: read
@@ -17,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out source
-        uses: actions/checkout@v5
+        uses: actions/checkout@v7
 
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
@@ -43,7 +39,7 @@ jobs:
 
   release:
     name: Build and publish release
-    if: startsWith(github.ref, 'refs/tags/v') || github.ref == 'refs/heads/main'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     needs: validate
     runs-on: ubuntu-latest
     permissions:
@@ -56,19 +52,9 @@ jobs:
         id: version
         shell: bash
         run: |
-          if [[ "$GITHUB_REF_TYPE" == "tag" ]]; then
-            release_tag="$GITHUB_REF_NAME"
-            nightly=false
-          else
-            release_tag="main-${GITHUB_SHA:0:12}"
-            nightly=true
-          fi
+          release_tag="main-${GITHUB_SHA:0:12}"
+          nightly=true
           version="$(sed -n 's:.*<version>\(.*\)</version>.*:\1:p' appinfo/info.xml)"
-          metadata_version="$(sed -n 's:.*<version>\(.*\)</version>.*:\1:p' appinfo/info.xml)"
-          if [[ "$GITHUB_REF_TYPE" == "tag" && "${GITHUB_REF_NAME#v}" != "$metadata_version" ]]; then
-            echo "Tag version ${GITHUB_REF_NAME#v} does not match info.xml version $metadata_version"
-            exit 1
-          fi
           echo "release_tag=$release_tag" >> "$GITHUB_OUTPUT"
           echo "version=$version" >> "$GITHUB_OUTPUT"
           echo "nightly=$nightly" >> "$GITHUB_OUTPUT"

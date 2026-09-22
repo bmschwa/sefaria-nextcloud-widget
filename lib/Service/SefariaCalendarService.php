@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace OCA\SefariaDashboard\Service;
 
+use OCA\SefariaDashboard\AppInfo\Application;
 use OCP\Dashboard\Model\WidgetItem;
 use OCP\Dashboard\Model\WidgetItems;
 use OCP\Http\Client\IClientService;
+use OCP\IURLGenerator;
 use Psr\Log\LoggerInterface;
 
 class SefariaCalendarService {
@@ -14,6 +16,7 @@ class SefariaCalendarService {
 
     public function __construct(
         private IClientService $clientService,
+        private IURLGenerator $urlGenerator,
         private LoggerInterface $logger,
     ) {
     }
@@ -46,7 +49,9 @@ class SefariaCalendarService {
                     $displayValue,
                     $title,
                     'https://www.sefaria.org/' . ltrim($url, '/'),
-                    '',
+                    $this->urlGenerator->getAbsoluteURL(
+                        $this->urlGenerator->imagePath(Application::APP_ID, 'app.svg')
+                    ),
                     $payload['date'] ?? '',
                 );
 
