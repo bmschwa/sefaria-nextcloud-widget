@@ -20,20 +20,23 @@ A small Nextcloud app that adds today's Sefaria learning schedules to the dashbo
 3. Enable it with `occ app:enable sefaria_dashboard`.
 4. Open the Nextcloud dashboard.
 
-The app targets Nextcloud 31 and newer, and PHP 8.1 or newer.
+The app targets Nextcloud 31 and PHP 8.1 or newer.
 
 ## Releases
 
-GitHub Actions validates pushes and pull requests. To create a release archive, update the version in `appinfo/info.xml`, update `CHANGELOG.md`, commit those changes, and push a matching tag:
+GitHub Actions validates pushes and pull requests. Every commit pushed to `main` creates a uniquely tagged GitHub prerelease archive and publishes it as a nightly build to the Nextcloud App Store. The workflow requires the `APP_PRIVATE_KEY` and `APPSTORE_TOKEN` repository secrets for App Store publishing.
+
+To create a stable release, update the version in `appinfo/info.xml`, update `CHANGELOG.md`, commit those changes, and push a matching tag:
 
 ```bash
 git tag v0.1.0
 git push origin v0.1.0
 ```
 
-The workflow checks the tag and app version, then publishes `sefaria_dashboard-0.1.0.tar.gz` to the GitHub Release. The archive is structured for Nextcloud installation and excludes development files such as `vendor/`, `.git/`, and `.vscode/`.
+The workflow checks the tag and app version, then publishes `sefaria_dashboard-0.1.0.tar.gz` to the GitHub Release and Nextcloud App Store. The archive is structured for Nextcloud installation and excludes development files such as `vendor/`, `.git/`, and `.vscode/`.
 
 ## References
 
 - [Nextcloud dashboard widgets](https://docs.nextcloud.com/server/latest/developer_manual/digging_deeper/dashboard.html#dashboard)
 - [Sefaria Calendars API](https://developers.sefaria.org/reference/get-calendars)
+- [R0Wi/nextcloud-appstore-push-action](https://github.com/R0Wi/nextcloud-appstore-push-action)
