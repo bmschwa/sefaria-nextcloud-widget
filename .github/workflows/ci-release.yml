@@ -46,7 +46,7 @@ jobs:
       contents: write
     steps:
       - name: Check out source
-        uses: actions/checkout@v5
+        uses: actions/checkout@v7
 
       - name: Read release version
         id: version
@@ -58,6 +58,14 @@ jobs:
           echo "release_tag=$release_tag" >> "$GITHUB_OUTPUT"
           echo "version=$version" >> "$GITHUB_OUTPUT"
           echo "nightly=$nightly" >> "$GITHUB_OUTPUT"
+
+      - name: Fetch Sefaria app logo
+        shell: bash
+        run: |
+          curl --fail --location --retry 3 \
+            --output appinfo/icon.png \
+            https://files.readme.io/87c5652-image.png
+          test -s appinfo/icon.png
 
       - name: Build App Store archive
         shell: bash

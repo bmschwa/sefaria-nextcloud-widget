@@ -2,6 +2,12 @@
 
 A small Nextcloud app that adds today's Sefaria learning schedules to the dashboard.
 
+## Powered by Sefaria
+
+[![Powered by Sefaria](https://files.readme.io/87c5652-image.png)](https://www.sefaria.org/)
+
+This project uses data from [Sefaria](https://www.sefaria.org/) and is an independent third-party project, not developed or endorsed by Sefaria. See Sefaria's [name and logo usage guidance](https://developers.sefaria.org/docs/usage-of-our-name-and-logo).
+
 # **AI DISCLOSURE**
 
 **This project was built with AI assistance. The tool used was GitHub Copilot in Visual Studio Code.  AI assistance was used for project setup, PHP and Nextcloud code, debugging, documentation, and validation.**
