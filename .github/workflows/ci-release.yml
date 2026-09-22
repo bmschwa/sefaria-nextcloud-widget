@@ -42,8 +42,8 @@ jobs:
         run: xmllint --noout appinfo/info.xml
 
   release:
-    name: Build GitHub release
-    if: startsWith(github.ref, 'refs/tags/v')
+    name: Build and publish release
+    if: startsWith(github.ref, 'refs/tags/v') || github.ref == 'refs/heads/main'
     needs: validate
     runs-on: ubuntu-latest
     permissions:
@@ -56,13 +56,22 @@ jobs:
         id: version
         shell: bash
         run: |
-          version="${GITHUB_REF_NAME#v}"
+          if [[ "$GITHUB_REF_TYPE" == "tag" ]]; then
+            release_tag="$GITHUB_REF_NAME"
+            nightly=false
+          else
+            release_tag="main-${GITHUB_SHA:0:12}"
+            nightly=true
+          fi
+          version="$(sed -n 's:.*<version>\(.*\)</version>.*:\1:p' appinfo/info.xml)"
           metadata_version="$(sed -n 's:.*<version>\(.*\)</version>.*:\1:p' appinfo/info.xml)"
-          if [[ "$version" != "$metadata_version" ]]; then
-            echo "Tag version $version does not match info.xml version $metadata_version"
+          if [[ "$GITHUB_REF_TYPE" == "tag" && "${GITHUB_REF_NAME#v}" != "$metadata_version" ]]; then
+            echo "Tag version ${GITHUB_REF_NAME#v} does not match info.xml version $metadata_version"
             exit 1
           fi
+          echo "release_tag=$release_tag" >> "$GITHUB_OUTPUT"
           echo "version=$version" >> "$GITHUB_OUTPUT"
+          echo "nightly=$nightly" >> "$GITHUB_OUTPUT"
 
       - name: Build App Store archive
         shell: bash
@@ -81,5 +90,16 @@ jobs:
       - name: Publish GitHub release
         uses: softprops/action-gh-release@v2
         with:
+          tag_name: ${{ steps.version.outputs.release_tag }}
+          prerelease: ${{ steps.version.outputs.nightly }}
           generate_release_notes: true
           files: sefaria_dashboard-${{ steps.version.outputs.version }}.tar.gz
+
+      - name: Publish app to Nextcloud App Store
+        uses: R0Wi/nextcloud-appstore-push-action@v1.0.5
+        with:
+          app_name: sefaria_dashboard
+          appstore_token: ${{ secrets.APPSTORE_TOKEN }}
+          app_private_key: ${{ secrets.APP_PRIVATE_KEY }}
+          download_url: https://github.com/${{ github.repository }}/releases/download/${{ steps.version.outputs.release_tag }}/sefaria_dashboard-${{ steps.version.outputs.version }}.tar.gz
+          nightly: ${{ steps.version.outputs.nightly }}
