@@ -24,9 +24,7 @@
     </dependencies>
     <website>https://github.com/bmschwa/sefaria-nextcloud-widget</website>
     <bugs>https://github.com/bmschwa/sefaria-nextcloud-widget/issues</bugs>
-    <docmentation>
-         <user>https://github.com/bmschwa/sefaria-nextcloud-widget</user>
-    </documentation>
+    <docmentation>https://github.com/bmschwa/sefaria-nextcloud-widget</documentation>
     <screenshot></screenshot>
 
 
