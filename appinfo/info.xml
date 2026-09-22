@@ -23,7 +23,7 @@
         <nextcloud min-version="31" max-version="35"/>
     </dependencies>
     <website>https://github.com/bmschwa/sefaria-nextcloud-widget</website>
-    <bugs>https://github.com/bmschwa/sefaria-nextcloud-widget/issues</bugs>
+    <!-- <bugs>https://github.com/bmschwa/sefaria-nextcloud-widget/issues</bugs> -->
     <documentation>https://github.com/bmschwa/sefaria-nextcloud-widget</documentation>
     <screenshot></screenshot>
 
