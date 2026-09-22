@@ -5,10 +5,16 @@
     <namespace>SefariaDashboard</namespace>
     <name>Sefaria Dashboard</name>
     <summary>Jewish learning schedules from Sefaria</summary>
-    <description>Shows today's Jewish learning schedules from Sefaria.</description>
-    <version>0.2.0</version>
+    <description><![CDATA[
+        Shows today's Jewish learning schedules from [Sefaria](https://www.sefaria.org/).
+
+
+        [![Powered by Sefaria](https://files.readme.io/87c5652-image.png)](https://www.sefaria.org/)
+
+    ]]></description>
+    <version>0.2.1</version>
     <licence>AGPL-3.0-or-later</licence>
-    <author>Brian Schwartz</author>
+    <author>bmschwa</author>
     <category>dashboard</category>
     <bugs>https://github.com/bmschwa/sefaria-nextcloud-widget/issues</bugs>
     <repository>https://github.com/bmschwa/sefaria-nextcloud-widget</repository>
@@ -16,4 +22,10 @@
         <php min-version="8.1"/>
         <nextcloud min-version="31" max-version="35"/>
     </dependencies>
+    <website>https://github.com/bmschwa/sefaria-nextcloud-widget</website>
+    <bugs>https://github.com/bmschwa/sefaria-nextcloud-widget/issues</bugs>
+    <documentation>https://github.com/bmschwa/sefaria-nextcloud-widget</documentation>
+    <screenshot></screenshot>
+
+
 </info>
