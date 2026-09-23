@@ -1,10 +1,8 @@
 # Sefaria Dashboard for Nextcloud
 
-A small Nextcloud app that adds today's Sefaria learning schedules to the dashboard.
+A small Nextcloud app that displays Sefaria learning schedules on the dashboard.
 
-## Powered by Sefaria
-
-[![Powered by Sefaria](https://files.readme.io/87c5652-image.png)](https://www.sefaria.org/)
+[![Powered by Sefaria](https://files.readme.io/87c5652-image.png)](https://help.sefaria.org/hc/en-us/articles/17388247452956-What-is-Sefaria)
 
 This project uses data from [Sefaria](https://www.sefaria.org/) and is an independent third-party project, not developed or endorsed by Sefaria. See Sefaria's [name and logo usage guidance](https://developers.sefaria.org/docs/usage-of-our-name-and-logo).
 
@@ -27,6 +25,13 @@ This project uses data from [Sefaria](https://www.sefaria.org/) and is an indepe
 4. Open the Nextcloud dashboard.
 
 The app targets Nextcloud 31 and up with PHP 8.1 or newer.
+
+### CLI for Local Builds
+
+_Windows_
+```
+$ErrorActionPreference='Stop'; $v=([xml](Get-Content -Raw appinfo/info.xml)).info.version; $a="sefaria_dashboard-$v.tar.gz"; $r=Join-Path $env:TEMP "sefaria-package-$([guid]::NewGuid())"; $s=Join-Path $r sefaria_dashboard; New-Item -ItemType Directory -Path $s -Force | Out-Null; Get-ChildItem -Force | Where-Object Name -notin '.git','.github','.vscode','vendor','sefaria_dashboard.key',$a | Copy-Item -Destination $s -Recurse -Force; curl.exe --fail --location --retry 3 --output (Join-Path $s 'appinfo/icon.png') 'https://files.readme.io/87c5652-image.png'; tar.exe -czf $a -C $r sefaria_dashboard; Remove-Item $r -Recurse -Force; Write-Host "Created $a"
+```
 
 ## Releases
 

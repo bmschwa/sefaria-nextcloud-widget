@@ -45,13 +45,16 @@ class SefariaCalendarService {
                     continue;
                 }
 
+                $iconUrl = $this->urlGenerator->getAbsoluteURL(
+                    $this->urlGenerator->imagePath(Application::APP_ID, 'app.svg')
+                );
+                //$this->logger->debug('Sefaria widget icon points to: ' . $iconUrl);
+
                 $items[] = new WidgetItem(
                     $displayValue,
                     $title,
                     'https://www.sefaria.org/' . ltrim($url, '/'),
-                    $this->urlGenerator->getAbsoluteURL(
-                        $this->urlGenerator->imagePath(Application::APP_ID, 'app.svg')
-                    ),
+                    $iconUrl,
                     $payload['date'] ?? '',
                 );
 

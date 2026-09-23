@@ -26,7 +26,7 @@ class SefariaWidget implements IAPIWidgetV2, IIconWidget, IReloadableWidget {
     }
 
     public function getTitle(): string {
-        return $this->l10n->t("Today's Jewish Learning");
+        return $this->l10n->t("Jewish Text Calendar");
     }
 
     public function getOrder(): int {
