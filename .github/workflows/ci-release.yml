@@ -3,6 +3,7 @@ name: Validate and release app
 on:
   pull_request:
   push:
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -97,3 +98,49 @@ jobs:
           app_private_key: ${{ secrets.APP_PRIVATE_KEY }}
           download_url: https://github.com/${{ github.repository }}/releases/download/${{ steps.version.outputs.release_tag }}/sefaria_dashboard-${{ steps.version.outputs.version }}.tar.gz
           nightly: ${{ steps.version.outputs.nightly }}
+
+  package-test:
+    name: Build package for testing
+    if: github.event_name == 'workflow_dispatch'
+    needs: validate
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v7
+
+      - name: Read package version
+        id: version
+        shell: bash
+        run: |
+          version="$(sed -n 's:.*<version>\(.*\)</version>.*:\1:p' appinfo/info.xml)"
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+
+      - name: Fetch Sefaria app logo
+        shell: bash
+        run: |
+          curl --fail --location --retry 3 \
+            --output appinfo/icon.png \
+            https://files.readme.io/87c5652-image.png
+          test -s appinfo/icon.png
+
+      - name: Build App Store archive
+        shell: bash
+        run: |
+          version="${{ steps.version.outputs.version }}"
+          staging="${RUNNER_TEMP}/sefaria_dashboard"
+          archive="sefaria_dashboard-${version}.tar.gz"
+          mkdir -p "$staging"
+          rsync -a --exclude='.git' --exclude='.github' --exclude='.vscode' --exclude='vendor' ./ "$staging/"
+          tar -czf "$archive" -C "${RUNNER_TEMP}" sefaria_dashboard
+          tar -tzf "$archive"
+          test "$(tar -tzf "$archive" | sed -n '1p')" = "sefaria_dashboard/"
+          test -f "$staging/appinfo/info.xml"
+          test -f "$staging/appinfo/icon.png"
+          test -f "$staging/CHANGELOG.md"
+
+      - name: Upload test package
+        uses: actions/upload-artifact@v4
+        with:
+          name: sefaria-dashboard-package
+          path: sefaria_dashboard-${{ steps.version.outputs.version }}.tar.gz
+          if-no-files-found: error

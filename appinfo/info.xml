@@ -6,7 +6,7 @@
     <name>Sefaria Dashboard</name>
     <summary>Jewish learning schedules from Sefaria</summary>
     <description><![CDATA[
-        Shows today's Jewish learning schedules from [Sefaria](https://www.sefaria.org/).
+        Shows Jewish learning schedules from [Sefaria](https://help.sefaria.org/hc/en-us/articles/17388247452956-What-is-Sefaria).
 
 
         [![Powered by Sefaria](https://files.readme.io/87c5652-image.png)](https://www.sefaria.org/)
@@ -25,7 +25,5 @@
     <website>https://github.com/bmschwa/sefaria-nextcloud-widget</website>
     <!-- <bugs>https://github.com/bmschwa/sefaria-nextcloud-widget/issues</bugs> -->
     <documentation>https://github.com/bmschwa/sefaria-nextcloud-widget</documentation>
-    <!--<screenshot></screenshot>-->
-
-
+    <!--<screenshot></screenshot> -->
 </info>
