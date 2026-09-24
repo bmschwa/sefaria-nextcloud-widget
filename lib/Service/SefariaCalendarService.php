@@ -50,12 +50,15 @@ class SefariaCalendarService {
                 );
                 //$this->logger->debug('Sefaria widget icon points to: ' . $iconUrl);
 
+                $linkUrl = 'https://www.sefaria.org/' . ltrim($url, '/');
+
                 $items[] = new WidgetItem(
-                    $displayValue,
-                    $title,
-                    'https://www.sefaria.org/' . ltrim($url, '/'),
-                    $iconUrl,
-                    $payload['date'] ?? '',
+                    $displayValue, // title
+                    $title, // subtitle
+                    $linkUrl, // link
+                    $iconUrl, // iconURL
+                    $payload['date'] ?? '', // sinceId
+                    //overlayIconUrl
                 );
 
                 if (count($items) >= $limit) {
