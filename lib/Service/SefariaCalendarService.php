@@ -45,8 +45,9 @@ class SefariaCalendarService {
         $fontSize = 24;
         $labelLength = mb_strlen($safeText, 'UTF-8');
 
-        if ($labelLength > 10) {
-            $fontSize = max(12, 24 - (($labelLength - 10) * 1.2));
+        $scaleLength = 6;
+        if ($labelLength > $scaleLength) {
+            $fontSize = max($fontSize/2, $fontSize - (($labelLength - $scaleLength) * 1.2));
         }
 
         $baseSvgPath = dirname(__DIR__, 2) . '/img/app.svg';
