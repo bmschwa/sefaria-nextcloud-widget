@@ -66,10 +66,10 @@ class SefariaCalendarService {
                 <path id="sefaria-curve" d="M 18 100 C 10 72, 18 38, 48 20 C 78 4, 110 12, 116 42" />
               </defs>
               <rect width="128" height="128" rx="18" fill="#18345d" />
-              <g transform="translate(76 84) scale(0.9)">
+              <g transform="translate(68 76) scale(1.2)">
                 %s
               </g>
-              <text fill="#dfe8ff" font-family="Arial, sans-serif" font-size="17" font-weight="700" letter-spacing="1.4">
+              <text fill="#dfe8ff" font-family="Arial, sans-serif" font-size="22" font-weight="700" letter-spacing="1.8">
                 <textPath href="#sefaria-curve" startOffset="50%%" text-anchor="middle">%s</textPath>
               </text>
             </svg>
