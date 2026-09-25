@@ -63,13 +63,13 @@ class SefariaCalendarService {
             <<<'SVG'
             <svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" role="img" aria-label="%s">
               <defs>
-                <path id="sefaria-curve" d="M 21 56 A 43 43 0 1 1 107 56" />
+                <path id="sefaria-curve" d="M 18 100 C 10 72, 18 38, 48 20 C 78 4, 110 12, 116 42" />
               </defs>
               <rect width="128" height="128" rx="18" fill="#18345d" />
               <g transform="translate(76 84) scale(0.9)">
                 %s
               </g>
-              <text fill="#dfe8ff" font-family="Arial, sans-serif" font-size="16" font-weight="700" letter-spacing="1.2">
+              <text fill="#dfe8ff" font-family="Arial, sans-serif" font-size="17" font-weight="700" letter-spacing="1.4">
                 <textPath href="#sefaria-curve" startOffset="50%%" text-anchor="middle">%s</textPath>
               </text>
             </svg>
