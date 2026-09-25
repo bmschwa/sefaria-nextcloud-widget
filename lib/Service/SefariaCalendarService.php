@@ -42,6 +42,13 @@ class SefariaCalendarService {
         $safeText = strtoupper(substr($safeText, 0, 18));
         $safeText = $safeText === '' ? 'SEFARIA' : $safeText;
 
+        $fontSize = 24;
+        $labelLength = mb_strlen($safeText, 'UTF-8');
+
+        if ($labelLength > 10) {
+            $fontSize = max(12, 24 - (($labelLength - 10) * 1.2));
+        }
+
         $baseSvgPath = dirname(__DIR__, 2) . '/img/app.svg';
         $baseSvg = @file_get_contents($baseSvgPath);
         $baseShape = '';
@@ -69,13 +76,14 @@ class SefariaCalendarService {
               <g transform="translate(82 74) scale(0.9)">
                 %s
               </g>
-              <text fill="#dfe8ff" font-family="Arial, sans-serif" font-size="24" font-weight="700" letter-spacing="1.9">
+              <text fill="#dfe8ff" font-family="Arial, sans-serif" font-size="%s" font-weight="700" letter-spacing="1.9">
                 <textPath href="#sefaria-curve" startOffset="50%%" text-anchor="middle">%s</textPath>
               </text>
             </svg>
             SVG,
             htmlspecialchars($categoryLabel, ENT_QUOTES, 'UTF-8'),
             $baseShape,
+            $fontSize,
             htmlspecialchars($safeText, ENT_QUOTES, 'UTF-8')
         );
 
